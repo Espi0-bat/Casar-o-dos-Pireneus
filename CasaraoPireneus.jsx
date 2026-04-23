@@ -306,7 +306,7 @@ function Nav() {
         <div style={{ position: "fixed", inset: 0, background: colors.ink, zIndex: 100, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 40 }}>
           <button onClick={() => setMenuOpen(false)} style={{ position: "absolute", top: 28, right: 28, background: "none", border: "none", cursor: "pointer", color: colors.cream, fontSize: 28 }}>✕</button>
           {["Casarão","Chalés","Experiências","Contato"].map(l => (
-            <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)}
+            <a key={l} href={`#${l.toLowerCase().replace("ê","e").replace("ã","a")}`} onClick={() => setMenuOpen(false)}
               className="font-display"
               style={{ color: colors.cream, fontSize: 32, fontWeight: 300, textDecoration: "none", letterSpacing: 3 }}>
               {l}
@@ -364,28 +364,39 @@ function Hero() {
         </p>
 
         {/* CTAs */}
-        <div className="reveal reveal-delay-3" style={{ display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "center" }}>
+        <div className="reveal reveal-delay-3 mobile-flex-col" style={{ display: "flex", gap: 16, justifyContent: "center" }}>
           <a
             href={WA_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-gold"
-            id="cta-hero-primary"
+            id="hero-cta-whatsapp"
             data-gtm-event="cta_click"
-            data-gtm-label="hero_primary_whatsapp"
+            data-gtm-label="hero_whatsapp"
             data-fbq-event="Lead"
           >
-            <IconWhatsApp size={20} />
-            Reservar Minha Experiência
+            <IconWhatsApp size={18} /> Consultar Disponibilidade
           </a>
           <a
             href="#casarao"
-            className="btn-outline"
-            id="cta-hero-secondary"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              padding: "16px 36px",
+              border: `1px solid ${colors.cream}`,
+              color: colors.cream,
+              textDecoration: "none",
+              fontSize: 13,
+              fontWeight: 600,
+              letterSpacing: 2,
+              textTransform: "uppercase",
+              fontFamily: "Montserrat, sans-serif"
+            }}
+            id="hero-cta-explore"
             data-gtm-event="cta_click"
-            data-gtm-label="hero_secondary_explore"
+            data-gtm-label="hero_explore"
           >
-            Conhecer a Fazenda <IconArrow color={colors.gold} />
+            Explorar a Fazenda
           </a>
         </div>
 
@@ -546,7 +557,7 @@ function ChalesSection() {
               className="btn-gold reveal"
               id="cta-chales-whatsapp"
               data-gtm-event="cta_click"
-              data-gtm-label="chales_section_whatsapp"
+              data-gtm-label="chales_whatsapp"
             >
               <IconWhatsApp size={18} /> Consultar Chalés
             </a>
