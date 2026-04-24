@@ -1,4 +1,5 @@
 // ─── DESIGN TOKENS E CONSTANTES GLOBAIS ────────────────────────────────────────
+import { useEffect } from "react";
 
 export const WHATSAPP_NUMBER = "5562999999999"; // ← SUBSTITUA PELO NÚMERO REAL
 export const WHATSAPP_MSG = encodeURIComponent(
@@ -34,23 +35,21 @@ export const IconArrow = ({ color = "#fff" }) => (
 
 // ─── GTM DATALAYER HELPER ──────────────────────────────────────────────────────
 export function useGTMTracking() {
-  import('react').then(({ useEffect }) => {
-    useEffect(() => {
-      const handler = (e) => {
-        const el = e.target.closest("[data-gtm-event]");
-        if (!el) return;
-        const event = el.getAttribute("data-gtm-event");
-        const label = el.getAttribute("data-gtm-label");
-        if (window.dataLayer) {
-          window.dataLayer.push({ event, label, timestamp: Date.now() });
-        }
-        const fbqEvent = el.getAttribute("data-fbq-event");
-        if (fbqEvent && window.fbq) {
-          window.fbq("track", fbqEvent);
-        }
-      };
-      document.addEventListener("click", handler);
-      return () => document.removeEventListener("click", handler);
-    }, []);
-  });
+  useEffect(() => {
+    const handler = (e) => {
+      const el = e.target.closest("[data-gtm-event]");
+      if (!el) return;
+      const event = el.getAttribute("data-gtm-event");
+      const label = el.getAttribute("data-gtm-label");
+      if (window.dataLayer) {
+        window.dataLayer.push({ event, label, timestamp: Date.now() });
+      }
+      const fbqEvent = el.getAttribute("data-fbq-event");
+      if (fbqEvent && window.fbq) {
+        window.fbq("track", fbqEvent);
+      }
+    };
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, []);
 }
